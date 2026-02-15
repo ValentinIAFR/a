@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Productivity Hub</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont;
+    background:#f2f2f7;
+}
+
+header{
+    padding:20px;
+    font-size:28px;
+    font-weight:600;
+}
+
+.card{
+    background:white;
+    margin:15px;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+button{
+    background:#007AFF;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Productivity Hub</header>
+
+<div class="card">
+<h3>🗓 Agenda</h3>
+<input id="task" placeholder="Nouvelle tâche">
+<button onclick="addTask()">Ajouter</button>
+<ul id="list"></ul>
+</div>
+
+<div class="card">
+<h3>⏱ Focus Timer</h3>
+<p id="timer">25:00</p>
+<button onclick="startTimer()">Démarrer</button>
+</div>
+
+<script>
+let tasks=[];
+
+function addTask(){
+ let t=document.getElementById("task").value;
+ tasks.push(t);
+ document.getElementById("list").innerHTML=
+ tasks.map(x=>`<li>${x}</li>`).join("");
+}
+
+let time=1500;
+let running=false;
+
+function startTimer(){
+ running=true;
+ setInterval(()=>{
+   if(running && time>0){
+     time--;
+     let m=Math.floor(time/60);
+     let s=time%60;
+     document.getElementById("timer").innerText=
+       `${m}:${s.toString().padStart(2,'0')}`;
+   }
+ },1000);
+}
+</script>
+
+</body>
+</html>
+
 
